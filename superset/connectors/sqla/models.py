@@ -328,6 +328,7 @@ class SqlaTable(Model, BaseDatasource):
                 compile_kwargs={"literal_binds": True}
             )
         )
+        sql = sql.replace("-strftime('%%d'", "-strftime('%d'")  # temporary and incomplete fix for sqlite bug: https://bitbucket.org/zzzeek/sqlalchemy/issues/4114/sqlite-the-compiled-query-escapes-percent
         logging.info(sql)
         sql = sqlparse.format(sql, reindent=True)
         return sql
